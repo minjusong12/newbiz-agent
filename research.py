@@ -1,22 +1,16 @@
-from dotenv import load_dotenv
-import os
+import streamlit as st
 import openai
-
-load_dotenv()
-api_key = os.getenv("OPENAI_API_KEY")
-
-client = openai.OpenAI(api_key=api_key)
-
 import ssl
 import os
 import httpx
 
-# 인증서 무시 (단, 일부 환경에서 제한될 수 있음)
+# ✅ Streamlit Cloud용: Secrets에서 API 키 가져오기
+api_key = st.secrets["OPENAI_API_KEY"]
+client = openai.OpenAI(api_key=api_key)
+
+# 인증서 무시 (일부 환경 대응)
 ssl._create_default_https_context = ssl._create_unverified_context
 os.environ['CURL_CA_BUNDLE'] = ''
-
-import openai
-
 
 def run_deep_research(topic: str) -> dict:
     """

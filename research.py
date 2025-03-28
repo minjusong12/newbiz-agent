@@ -48,7 +48,7 @@ def run_deep_research(topic: str) -> dict:
     user_prompt = f"주제: {topic}"
 
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4-1106-preview",
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}

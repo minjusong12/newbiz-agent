@@ -1,5 +1,4 @@
-openai
-streamlit
-python-dotenv
+openai>=1.0.0
+streamlit>=1.27.2
 python-docx
 python-pptx

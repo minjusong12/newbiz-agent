@@ -1,14 +1,20 @@
 # streamlit_app.py
 import streamlit as st
-from dotenv import load_dotenv
 import os
 import socket
 from report_generator import generate_all_documents  # 보고서+PPT+리서치 생성
-from email_utils import send_email_with_attachment  # 이메일 전송 함수
+from email_utils import send_email_with_attachment   # 이메일 전송 함수
 
-# 📦 .env 파일 불러오기 (비밀번호, API키 등)
-load_dotenv()
-app_password = os.getenv("APP_PASSWORD")
+# ✅ secrets.toml 또는 Streamlit Cloud의 설정값 불러오기
+app_password = st.secrets.get("APP_PASSWORD", "")
+email_user = st.secrets.get("EMAIL_USER", "")
+email_pass = st.secrets.get("EMAIL_PASS", "")
+openai_key = st.secrets.get("OPENAI_API_KEY", "")
+
+# ✅ OpenAI 키 환경 변수 등록 (research.py에서 사용하도록)
+os.environ["OPENAI_API_KEY"] = openai_key
+os.environ["EMAIL_USER"] = email_user
+os.environ["EMAIL_PASS"] = email_pass
 
 # 🧱 기본 설정
 st.set_page_config(page_title="🚀 신사업 제안 보고서 생성기", layout="wide")
